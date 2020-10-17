@@ -1,0 +1,95 @@
+<div class="container">
+  <h3 class="mt-2 mb-2">User list</h3>
+  <ngx-datatable class="material"
+                  #userTable
+                  [rows]="userList"
+                  [columnMode]="'force'"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  rowHeight="auto"
+                  [limit]="5"
+                  [loadingIndicator]="loading"
+                  [selected]="selected"
+                  [selectionType]="'checkbox'"
+                  [selectAllRowsOnPage]="false"
+                  (activate)="onActivate($event)"
+                  (select)="onSelect($event)">
+
+    <ngx-datatable-column [width]="30"
+                          [sortable]="false"
+                          [canAutoResize]="false"
+                          [draggable]="false"
+                          [resizeable]="false"
+                          [headerCheckboxable]="true"
+                          [checkboxable]="true">
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Id">
+      <ng-template let-data="row" ngx-datatable-cell-template>
+        <div>
+          <span>{{data.id}}</span>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Firstname">
+      <ng-template let-data="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+        <ng-template #editFirst>
+          <input type="text"
+                name="firstname{{rowIndex}}"
+                [value]="data.firstname"
+                (change)="updateData($event, data, rowIndex, 'firstname')">
+        </ng-template>
+        <div (dblclick)="openEdit(rowIndex, 'firstname')" *ngIf="!editing[rowIndex + '-firstname']; else editFirst">
+          <span>{{data.firstname}}</span>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Lastname">
+      <ng-template let-data="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+        <ng-template #editLast>
+          <input type="text"
+                name="lastname{{rowIndex}}"
+                [value]="data.lastname"
+                (change)="updateData($event, data, rowIndex, 'lastname')">
+        </ng-template>
+        <div (dblclick)="openEdit(rowIndex, 'lastname')" *ngIf="!editing[rowIndex + '-lastname']; else editLast">
+          <span>{{data.lastname}}</span>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Age">
+      <ng-template let-data="row" ngx-datatable-cell-template>
+        <div (dblclick)="openEdit(rowIndex)">
+          <span>{{data.birthdate | timePassed}}</span>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <!-------------------    PAGINATION    ------------------->
+
+    <ngx-datatable-footer>
+      <ng-template ngx-datatable-footer-template
+                    let-rowCount="rowCount"
+                    let-pageSize="pageSize"
+                    let-selectedCount="selectedCount"
+                    let-curPage="curPage"
+                    let-offset="offset">
+        <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'"
+                          [pagerRightArrowIcon]="'datatable-icon-right'"
+                          [pagerPreviousIcon]="'datatable-icon-prev'"
+                          [pagerNextIcon]="'datatable-icon-skip'"
+                          [page]="curPage"
+                          [size]="pageSize"
+                          [count]="rowCount"
+                          [hidden]="!((rowCount / pageSize) > 0)"
+                          (change)="userTable.onFooterPage($event)">
+        </datatable-pager>
+      </ng-template>
+    </ngx-datatable-footer>
+
+  </ngx-datatable>
+</div>
+

@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CoreModule } from '@core/core.module';
 import { UserRoutingModule } from './user-routing.module';
 
 import { UserComponent, UserListComponent } from './components';
 import { UserService } from './services/user/user.service';
+import { SharedModule } from '@app/shared/shared.module';
 
 
 
@@ -14,9 +13,8 @@ import { UserService } from './services/user/user.service';
     UserListComponent
   ],
   imports: [
-    CommonModule,
     UserRoutingModule,
-    CoreModule
+    SharedModule,
   ],
   providers: [
     UserService

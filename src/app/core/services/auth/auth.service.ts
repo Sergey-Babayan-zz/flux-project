@@ -30,16 +30,16 @@ export class AuthService {
   }
 
   public login(loginData: ILoginData): Observable<any> {
-    loginData = {
-      "email": "eve.holt@reqres.in",
-      "password": "cityslicka"
-    };
+    // loginData = {
+    //   "email": "eve.holt@reqres.in",
+    //   "password": "cityslicka"
+    // };
     // tslint:disable-next-line: max-line-length
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
-    return this.http.post(this.getApiUrl('api/login'), loginData).pipe(
+    // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+    return this.http.post<{access_token: string}>(this.getApiUrl('customer/getCustomerWithEmailAndPass'), loginData).pipe(
       map(res => {
         // localStorage.setItem('access_token', res.accessToken);
-        localStorage.setItem('access_token', token);
+        localStorage.setItem('access_token', res.access_token);
         return res;
       })
     );

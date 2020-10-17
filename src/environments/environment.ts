@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'https://reqres.in/'
+  serverUrl: 'https://newapi.axiomprint.com/v1/'
 };
 
 /*
