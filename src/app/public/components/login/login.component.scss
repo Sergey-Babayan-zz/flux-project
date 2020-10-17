@@ -1,0 +1,22 @@
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  margin-top: 100px;
+  .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+    box-shadow: unset;
+    &:focus {
+      z-index: 2;
+    }
+    &.ng-invalid.ng-touched{
+      border-color: red;
+    }
+  }
+}
+

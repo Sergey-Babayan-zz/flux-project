@@ -1,0 +1,32 @@
+<form *ngIf="form" class="form-signin" [formGroup]="form">
+  <div class="text-center">
+    <img class="mb-4" src="assets/imgs/logo_normal.svg" alt="" width="200">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+  </div>
+  <div>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="inputEmail" formControlName="email" class="form-control" placeholder="Email address">
+    <div class="messages text-danger error">
+      <div *ngIf="form.get('email').errors && form.get('email').touched">
+        <div class="warning" [hidden]="!form.get('email').errors['requiredValid']">
+          Required Field
+        </div>
+        <div [hidden]="!form.get('email').errors['emailValid']">
+          Invalid E-Mail
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" formControlName="password" class="form-control" placeholder="Password">
+    <div class="messages text-danger error">
+      <div *ngIf="form.get('password').errors && form.get('password').touched">
+        <div class="warning" [hidden]="!form.get('password').errors['requiredValid']">
+            Required Field
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" [disabled]="form.invalid || loading" type="button" (click)="onSubmit()">Log in</button>
+</form>
