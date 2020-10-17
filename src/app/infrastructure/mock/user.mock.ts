@@ -1,6 +1,6 @@
 import { IUser } from '@app/modules/user/interfaces';
 
-export const userList: IUser[] = [
+export let userList: IUser[] = [
   {
     id: '5f8aeca1c8966541cdc17e4c',
     firstname: 'Rena',

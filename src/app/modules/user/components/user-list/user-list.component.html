@@ -1,19 +1,21 @@
 <div class="container">
-  <h3 class="mt-2 mb-2">User list</h3>
+  <div class="d-flex align-items-center justify-content-between">
+    <h3 class="mt-2 mb-2">User list</h3>
+    <button *ngIf="selected?.length" type="button" class="btn btn-danger" (click)="removeBulk()">Remove Selected ({{selected.length}})</button>
+  </div>
   <ngx-datatable class="material"
-                  #userTable
-                  [rows]="userList"
-                  [columnMode]="'force'"
-                  [headerHeight]="50"
-                  [footerHeight]="50"
-                  rowHeight="auto"
-                  [limit]="5"
-                  [loadingIndicator]="loading"
-                  [selected]="selected"
-                  [selectionType]="'checkbox'"
-                  [selectAllRowsOnPage]="false"
-                  (activate)="onActivate($event)"
-                  (select)="onSelect($event)">
+    #userTable
+    [rows]="userList"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    rowHeight="auto"
+    [limit]="5"
+    [loadingIndicator]="loading"
+    [selected]="selected"
+    [selectionType]="'checkbox'"
+    [selectAllRowsOnPage]="false"
+    (select)="onSelect($event)">
 
     <ngx-datatable-column [width]="30"
                           [sortable]="false"
@@ -91,5 +93,35 @@
     </ngx-datatable-footer>
 
   </ngx-datatable>
+
+  <form [formGroup]="form" class="border p-2 mt-4 col-sm-5">
+    <div class="row">
+      <div class="form-group col-sm-10">
+        <label>Firstname</label>
+        <input type="text" formControlName="firstname" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-10">
+        <label>Lastname</label>
+        <input type="text" formControlName="lastname" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-10">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp" (dateSelect)="appendDate($event)" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <button type="button" [disabled]="form.invalid" class="btn btn-success" (click)="addToTable()">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancel</button>
+    </footer>
+  </form>
 </div>
 

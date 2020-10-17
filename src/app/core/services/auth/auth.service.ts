@@ -2,6 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ILoginData } from '@app/infrastructure/interfaces';
+import { IResponse } from '@app/infrastructure/interfaces/response.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -36,10 +37,10 @@ export class AuthService {
     // };
     // tslint:disable-next-line: max-line-length
     // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
-    return this.http.post<{access_token: string}>(this.getApiUrl('customer/getCustomerWithEmailAndPass'), loginData).pipe(
+    return this.http.post<IResponse<{access_token: string}>>(this.getApiUrl('customer/getCustomerWithEmailAndPass'), loginData).pipe(
       map(res => {
         // localStorage.setItem('access_token', res.accessToken);
-        localStorage.setItem('access_token', res.access_token);
+        localStorage.setItem('access_token', res.data.access_token);
         return res;
       })
     );

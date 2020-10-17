@@ -5,6 +5,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { TokenInterceptor } from './interceptors';
 import { PublicAuthGuard, AuthGuard } from './guards';
+import { BroadcastService } from './services';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { PublicAuthGuard, AuthGuard } from './guards';
   providers: [
     AuthGuard,
     PublicAuthGuard,
+    BroadcastService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
   ]
 })
